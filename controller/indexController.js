@@ -49,9 +49,10 @@ exports.sendMail = (req, res, next) => {
         subject: req.body.subject,
         text: req.body.message, // plain‑text body
     });
+    })();
 
-        (async () => {
-        const info = await transporter.sendMail({
+    (async () => {
+        const reply = await transporter.sendMail({
             from: '"Leh We Build Salone" <info@lwbs-sl.com>',
             to: req.body.email,
             subject: "Message Received",
@@ -66,8 +67,8 @@ exports.sendMail = (req, res, next) => {
     
         console.log("Message sent:", info.messageId);
         })();
-    })();
 
-    res.location(req.get("Referrer") || "/");
+    // res.location(req.get("Referrer") || "/");
+    res.redirect("/contact");
 
 }
